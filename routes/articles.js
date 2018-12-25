@@ -109,6 +109,24 @@ if(errors){
                                 res.redirect('/');
                             }
                         })      
+                }else{
+                    req.flash('danger','Зөвхөн jpeg,png,gif файл');
+                    AdSubtype.findAll({
+                        where:{
+                            status:1
+                        }
+                    }).then(subtypes=>{
+                        DurationType.findAll().then(d_types=>{
+                            res.render('add', {
+                                title: 'Зар оруулах хүснэгт',
+                                subtypes:subtypes,
+                                d_types:d_types,
+                                errors:''
+                               
+                            });
+            
+                        })
+                    })
                 }
                     
             }else{
