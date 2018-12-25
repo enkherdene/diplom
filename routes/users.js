@@ -4,6 +4,7 @@ const router = express.Router();
 //const db= require('../db');
 const User=require("../models/user");
 const Freelancer=require("../models/freelancer");
+const Ad=require("../models/advertisement");
 
 
 
@@ -97,6 +98,29 @@ router.post('/register',ensureAuth, function(req,res){
             return;
         })
     }
+});
+
+router.get('/profile', function(req,res){
+    Freelancer.findOne({
+        where:{
+            id:req.session.user.id
+        }
+    }).then(user=>{
+        Ad.findAll({
+            where:{
+                freelancer_id:user.id,
+                status:1
+            }
+        }).then(ads=>{
+            res.render('profile', {
+                title: 'хувийн мэдээлэл',
+                article: ads,
+                auther:user,
+                errors:''
+            });
+        })
+        
+    })
 })
 function ensureAuth(req, res, next){
     if(req.session.user){

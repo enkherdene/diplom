@@ -1,0 +1,72 @@
+<% include partials/header.ejs %>
+
+
+    <div class="row">
+       
+              <!-- Sidebar Widgets Column -->
+              <div class="col-md-4 ">
+      
+      
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                  <h5 class="card-header">Нийтлэгч</h5>
+                  <div class="card-body">
+                    <div class="row ">
+                      <div class="col-lg-12 ">
+                         <img class="img-fluid rounded" src="/upload/user/<%=auther.image%>" alt="" style="margin-left: 15%">
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top:5px">
+                      <div class="col-lg-12">
+                        <ul class="list-unstyled mb-0">
+                          <li>Овог
+                            <a href="#"><%= auther.last_name%></a>
+                          </li>
+                          <li>Нэр
+                            <a href="#"><%= auther.first_name%></a>
+                          </li>
+                          <li>цахим шуудан
+                            <a href="#"><%= auther.email%></a>
+                          </li>
+                          <li>Утасны дугаар
+                            <a href="#"><%= auther.phone%></a>
+                          </li>
+                          
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      
+              </div>
+              <div class="col ">
+                <div class="row">
+                    <% article.forEach(function(a){ %>
+                        <div class="col-lg-4 col-sm-6 portfolio-item" style="margin-top:10px">
+                            <div class="card h-100">
+                                <a href="/article/<%=a.id %>"><img class="card-img-top" src="/upload/<%=a.image%>" alt=""></a>
+                                <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="/article/<%=a.id %>"><%=a.name%></a>
+                                </h5>
+                                <p class="card-text"><%=a.about%></p>
+                                </div>
+                                <div class="row">
+                                        <div class="col" style="text-align: center" >
+                                                <a><span class="fa fa-star checked" > 3</span></a>
+                                        </div>
+                                        <div class="col">
+                                            <h4><b>₮ </b><%=a.price%></h4>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    <% }); %>   
+                </div>
+              </div>
+   
+    </div>
+
+
+<% include partials/footer.ejs %>
+    
