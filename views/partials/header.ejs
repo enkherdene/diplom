@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= title%></title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="/">Хувиараа хөдөлмөр эрхлэгчийн бүртгэл</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Зарын мэдээлэл
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <% menu_types.forEach(function(type){ %>
+                    <a class="dropdown-item" href="/type/<%=type.id%>"><%=type.name%></a>
+                <%})%>
+                </div>
+            </li>
+            <li class="nav-item">
+                <form action="/search" method="post" class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" name="search" type="text" placeholder="хайлт">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Хайх</button>
+                </form>            
+            </li>
+            </ul>
+            
+            <ul class="navbar-nav justify-content-end">
+            <% if(user){%>
+                <% if(user.user_type==1){%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/register">Нэгдэх </a>
+                    </li>
+                <%}%>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Хэрэглэгч
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <% if(user.user_type==2){%>
+                        <a class="dropdown-item" href="/user/profile">Хувийн мэдээлэл</a>
+                      <a class="dropdown-item" href="/article/add">Зар оруулах</a>
+                      <div class="dropdown-divider"></div>
+                    <%}%>
+                      <a class="dropdown-item" href="/logout">Гарах</a>
+                    </div>
+                  </li>
+            <% }else{ %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Бүртгүүлэх </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Нэвтрэх</a>
+                </li>
+            <% } %>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="padding-top: 70px" >
+        <%- messages('message', locals) %>
+        <% if(errors){ %>
+            <% errors.forEach(function(error){ %>
+                <div class="alert alert-danger"> <%=error.msg %> </div>
+            <% }); %>
+       <% } %>

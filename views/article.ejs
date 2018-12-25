@@ -1,0 +1,104 @@
+<% include partials/header.ejs %>
+
+
+    <div class="row">
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
+
+                <!-- Title -->
+                <h1 class="mt-4"><%= article.name%></h1>
+      
+                <!-- Author -->
+                <p class="lead">
+                  Нийтлэгч:
+                  <a href="#"><%= auther.email%></a>
+                </p>
+      
+                <hr>
+      
+                <!-- Date/Time -->
+                <p>Нийтлэгдсэн огноо:<%= article.start_date%></p>
+      
+                <hr>
+      
+                <!-- Preview Image -->
+                <img class="img-fluid rounded" src="/upload/<%=article.image%>" alt="" style="max-width:900px;">
+      
+                <hr>
+      
+                <!-- Post Content -->
+                <p><%=article.about%></p>
+                <hr>
+                <span class="fa fa-star" id="star1" onclick="add(this,1)"></span>
+                <span class="fa fa-star" id="star2" onclick="add(this,2)"></span>
+                <span class="fa fa-star" id="star3" onclick="add(this,3)"></span>
+                <span class="fa fa-star" id="star4" onclick="add(this,4)"></span>
+                <span class="fa fa-star" id="star5" onclick="add(this,5)"></span>
+
+              <script>
+                function add(ths,sno){
+
+
+                  for (var i=1;i<=5;i++){
+                  var cur=document.getElementById("star"+i)
+                  cur.className="fa fa-star"
+                }
+
+                for (var i=1;i<=sno;i++){
+                  var cur=document.getElementById("star"+i)
+                  if(cur.className=="fa fa-star")
+                  {
+                  cur.className="fa fa-star checked"
+                  }
+                  }
+
+                }
+              </script>
+              <div class="row">
+              <% if(user){%>
+                <% if(user.email==auther.email){%>
+                  <a href="/article/edit/<%= article.id %>">    
+                     <button type="submit" class="btn btn-primary">edit</button>
+                 </a>
+                 <a href="/article/delete/<%= article.id %>">    
+                     <button type="submit" class="btn btn-danger delete-article" data-id="<%= article.id %>">delete</button>
+                 </a>
+               <%}%>
+              <%}%>
+              </div>
+              </div>
+      
+              <!-- Sidebar Widgets Column -->
+              <div class="col-md-4 ">
+      
+      
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                  <h5 class="card-header">Нийтлэгч</h5>
+                  <div class="card-body">
+                    <div class="row ">
+                      <div class="col-lg-12 ">
+                         <img class="img-fluid rounded" src="/upload/user/<%=auther.image%>" alt="" style="margin-left: 15%">
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top:5px">
+                      <div class="col-lg-12">
+                        <ul class="list-unstyled mb-0">
+                          <li>цахим шуудан
+                            <a href="#"><%= auther.email%></a>
+                          </li>
+                          
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      
+              </div>
+      
+   
+    </div>
+
+
+<% include partials/footer.ejs %>
+    

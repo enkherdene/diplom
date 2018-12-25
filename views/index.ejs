@@ -1,0 +1,37 @@
+<% include partials/header.ejs %>
+
+    
+        <h1><%= title %></h1>
+
+        
+        <div class="container">
+            <div class="row">
+                <% article.forEach(function(a){ %>
+                    <div class="col-lg-3 col-sm-6 portfolio-item" style="margin-top:10px">
+                        <div class="card h-100">
+                            <a href="/article/<%=a.id %>"><img class="card-img-top" src="/upload/<%=a.image%>" alt=""></a>
+                            <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="/article/<%=a.id %>"><%=a.name%></a>
+                            </h5>
+                            <p class="card-text"><%=a.about%></p>
+                            </div>
+                            <div class="row">
+                                    <div class="col" style="text-align: center" >
+                                            <a><span class="fa fa-star checked" > 3</span></a>
+                                    </div>
+                                    <div class="col">
+                                        <h4><b>₮ </b><%=a.price%></h4>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                <% }); %>   
+                  
+            </div>
+        </div>
+
+
+    
+   
+<% include partials/footer.ejs %>

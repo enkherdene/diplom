@@ -1,0 +1,62 @@
+<% include partials/header.ejs %>
+
+    
+        <h1><%= title %></h1>
+        
+      
+        <form action="/article/add" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <select class="custom-select" name="ad_subtype" >
+                        <option value="" selected>Дэд төрөл</option>
+                        <% subtypes.forEach(function(subtype){ %>  
+                            <option value="<%=subtype.id%>"><%=subtype.name%></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <input type="file" class="form-control-file" name="image" id="exampleFormControlFile1">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="name">Гарчиг</label>
+                    <input class="form-control" type="text" name="name" >
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="price">Үнэ</label>
+                    <input class="form-control" type="number" min="0" name="price" >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="about">тайлбар</label>
+                    <textarea class="form-control" name="about" id="about" cols="30" rows="2" >  </textarea>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="duration">Үргэлжлэх хугацаа</label>
+                    <div class="form-row">
+                        <div class="col-md-8 mb-3">
+                                <input class="form-control" type="number" name="duration" >
+                        </div>
+                        <div class="col-md-4 mb-3">
+                                <select class="custom-select" name="duration_type" id="ad_type">
+                                        <option value="" selected>Төрөл</option>
+                                        <% d_types.forEach(function(type){ %>
+                                            <option value="<%=type.id%>"><%=type.name%></option>
+                                        <% }); %>
+                                    </select>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+           
+            <button type="submit" class="btn btn-primary">бүртгэх</button>
+        </form>
+  
+              
+      
+          
+    
+<% include partials/footer.ejs %>

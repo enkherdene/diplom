@@ -1,0 +1,50 @@
+<% include partials/header.ejs %>
+
+    
+        <h1><%= title %></h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" style="background-color:#333333;padding-top: 20px;padding-bottom: 20px">
+                    <form action="/type/search" method="post" >
+                        <% menu_subtypes.forEach(function(subtype){ %>
+                            <div class="form-check">
+                                <a style="color:aliceblue"><input class="form-check-input position-static" type="checkbox" name="subtype_<%=subtype.id%>" value="<%=subtype.id%>" aria-label="<%=subtype.name%>" style="margin-right: 5px" ><%=subtype.name%></a> 
+                            </div>
+                        <%})%>
+                        <button type="submit" class="btn btn-primary"><span class="fa fa-star checked" > </span></button>
+                    </form>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <% article.forEach(function(a){ %>
+                            <div class="col-md-4 col-sm-6 portfolio-item" style="margin-top:10px">
+                                <div class="card h-100">
+                                    <a href="/article/<%=a.id %>"><img class="card-img-top" src="/upload/<%=a.image%>" alt=""></a>
+                                    <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="/article/<%=a.id %>"><%=a.name%></a>
+                                    </h5>
+                                    <p class="card-text"><%=a.about%></p>
+                                    </div>
+                                    <div class="row">
+                                            <div class="col" style="text-align: center" >
+                                                    <a><span class="fa fa-star checked" > 3</span></a>
+                                            </div>
+                                            <div class="col">
+                                                <h4><b>₮ </b><%=a.price%></h4>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        <% }); %>   
+                    </div>
+                </div>
+                
+                  
+            </div>
+        </div>
+
+
+    
+   
+<% include partials/footer.ejs %>

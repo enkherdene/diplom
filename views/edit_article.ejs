@@ -1,0 +1,68 @@
+<% include partials/header.ejs %>
+
+    
+        <h1><%= title %></h1>
+         
+        <form action="/article/edit/:id" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="ad_subtype">төрөл</label>
+                    <select class="custom-select" name="ad_subtype" >
+                        <% subtypes.forEach(function(subtype){ %>  
+                            <%if (subtype.id==article.ad_subtype){%>
+                                <option value="<%=subtype.id%>" selected><%=subtype.name%></option>
+                            <%}%>
+                            <option value="<%=subtype.id%>"><%=subtype.name%></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="ad_subtype">Зураг оруулах</label>
+                    <input type="file" class="form-control-file" name="image" id="exampleFormControlFile1" >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="name">Гарчиг</label>
+                    <input class="form-control" type="text" name="name" placeholder="<%=article.name%>" value="<%=article.name%>">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="price">Үнэ</label>
+                    <input class="form-control" type="number" min="0" name="price" placeholder="<%=article.price%>" value="<%=article.price%>" >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="about">тайлбар</label>
+                    <textarea class="form-control" name="about" id="about" cols="30" rows="2" > <%=article.about%> </textarea>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="duration">Үргэлжлэх хугацаа</label>
+                    <div class="form-row">
+                        <div class="col-md-8 mb-3">
+                                <input class="form-control" type="number" name="duration" placeholder="<%=article.duration%>" value="<%=article.duration%>">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                                <select class="custom-select" name="duration_type" id="ad_type">
+                                        <option value="" selected>Төрөл</option>
+                                        <% d_types.forEach(function(type){ %>
+                                            <%if(type.id==article.duration_type){%>
+                                                <option value="<%=type.id%>" selected><%=type.name%></option>
+                                            <%}%>
+                                            <option value="<%=type.id%>"><%=type.name%></option>
+                                        <% }); %>
+                                    </select>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+           
+            <button type="submit" class="btn btn-primary">бүртгэх</button>
+        </form>
+  
+
+
+    
+   
+<% include partials/footer.ejs %>
