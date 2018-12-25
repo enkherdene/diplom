@@ -317,8 +317,10 @@ router.get('/delete/:id',function(req,res){
                 }
             }).then(ad=>{
                 if(user.id==ad.freelancer_id){
+                    let today=new Date();
                     ad.update({
-                        status:2
+                        status:2,
+                        end_date:today
                     }).then(() => {});
                     Ad.findAll({
                         where:{
