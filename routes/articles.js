@@ -66,10 +66,11 @@ if(errors){
             }
         }).then(subtype=>{
             const today=new Date();
+            
             const adData = {
                 name:  req.body.name,
                 about:  req.body.about,
-                image:  '',
+                image:  'sample.jpg',
                 price:  req.body.price,
                 duration:  req.body.duration,
                 duration_type:  req.body.duration_type,
@@ -78,10 +79,10 @@ if(errors){
                 ad_subtype:  req.body.ad_subtype,
                 start_date:  today,
             }
-            if(req.files){
+            if(req.files.image){
                 var fileExtension = req.files.image.mimetype.split('/')[1];
                 var file =req.files.image,
-                    image=user.email+adData.price+'.'+fileExtension;
+                    image=user.email+today.getFullYear()+today.getMonth()+today.getDate()+today.getHours()+today.getMinutes()+today.getMilliseconds()+'.'+fileExtension;
                 if (file.mimetype == 'image/png' || file.mimetype == 'image/jpeg' || file.mimetype == 'image/gif') {
                     file.mv("./public/upload/"+image,function(err){
                         if(err){
@@ -154,18 +155,24 @@ router.get('/:id', function(req,res){
         id:req.params.id
         }
     }).then(ad=>{
-        Freelancer.findOne({
-            where:{
-                id:ad.freelancer_id
-            }
-        }).then(user=>{
-            res.render('article', {
-                title: 'Зар',
-                article: ad,
-                auther:user,
-                errors:''
-            });
-        })
+        if(ad.status==1){
+            Freelancer.findOne({
+                where:{
+                    id:ad.freelancer_id
+                }
+            }).then(user=>{
+                res.render('article', {
+                    title: 'Зар',
+                    article: ad,
+                    auther:user,
+                    errors:''
+                });
+            })
+        }else{
+            req.flash('danger','байхгүй зар мэдээ');
+            res.redirect('/');
+        }
+       
         
     })
     .catch(err => {
@@ -229,7 +236,7 @@ router.get('/edit/:id',ensureAuth, function(req,res){
                 id:req.body.ad_subtype
             }
         }).then(subtype=>{
-            if(req.files.image==undefined){
+            if(!req.files.image){
                 const today=new Date();
                 const adData = {
                     name:  req.body.name,
@@ -248,7 +255,18 @@ router.get('/edit/:id',ensureAuth, function(req,res){
                         id:req.params.id
                     }
                 }).then(adver=>{
-                    adver.update(adData);
+                    adver.update({
+                        name:  adData.name,
+                        about:  adData.about,
+                        image:  'sample.jpg',
+                        price:  adData.price,
+                        duration:  adData.duration,
+                        duration_type:  adData.duration_type,
+                        freelancer_id: adData.freelancer_id,
+                        ad_type:  adData.ad_typeid,
+                        ad_subtype:  adData.ad_subtype,
+                        start_date: adData.start_date,
+                    });
                     res.redirect('/');
                 })
 
@@ -300,7 +318,18 @@ router.get('/edit/:id',ensureAuth, function(req,res){
                                         id:req.params.id
                                     }
                                 }).then(adver=>{
-                                    adver.update(adData);
+                                    adver.update({
+                                        name:  adData.name,
+                                        about:  adData.about,
+                                        image:  adData.image,
+                                        price:  adData.price,
+                                        duration:  adData.duration,
+                                        duration_type:  adData.duration_type,
+                                        freelancer_id: adData.freelancer_id,
+                                        ad_type:  adData.ad_typeid,
+                                        ad_subtype:  adData.ad_subtype,
+                                        start_date: adData.start_date,
+                                    });
                                     res.redirect('/');
                                 })
                                 

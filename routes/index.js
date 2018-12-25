@@ -6,22 +6,37 @@ const db= require('../db');
 const User = require("../models/user");
 const Ad = require("../models/advertisement");
 const AdType=require("../models/ad_type");
-
+const Freelancer =require("../models/freelancer");
 router.get('/', function (req, res) {
-    Ad.findAll({
+    Ad.findAndCountAll({
         where:{
             status:1
         }
     }).then(ads=>{
         AdType.findAll().then(types=>{
             req.session.menu_types=types;
-            res.render('index', {
-                title: '',
-                article: ads,
-                menu_types: types,
-                errors:''
+           User.findAndCountAll({
+               where:{
+                   status:1,
+               }
+           }).then(users=>{
+                Freelancer.findAndCountAll({
+                    where:{
+                        status:1
+                    }
+                }).then(freelancers=>{
+                    res.render('index', {
+                        title: '',
+                        article: ads.rows,
+                        adall:ads.count,
+                        userall:users.count,
+                        freeall:freelancers.count,
+                        menu_types: types,
+                        errors:''
+                })
                 
             });
+           })
         });
     });
 });

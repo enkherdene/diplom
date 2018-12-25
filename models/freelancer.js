@@ -23,7 +23,7 @@ module.exports = db.sequelize.define(
         type: Sequelize.STRING
       },
       sex: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       birth_date: {
         type: Sequelize.DATE

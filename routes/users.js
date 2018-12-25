@@ -49,10 +49,10 @@ router.post('/register',ensureAuth, function(req,res){
                     sex: req.body.sex,
                     birth_date: req.body.birthday,
                     phone: req.body.phone,
-                    image:'',
+                    image:'zuraggui.png',
                     start_date:today
                 }
-                if(req.files){
+                if(req.files.image){
                     var fileExtension = req.files.image.mimetype.split('/')[1];
                     var file =req.files.image,
                         image=user.email+'.'+fileExtension;
@@ -104,6 +104,29 @@ router.get('/profile', function(req,res){
     Freelancer.findOne({
         where:{
             id:req.session.user.id
+        }
+    }).then(user=>{
+        Ad.findAll({
+            where:{
+                freelancer_id:user.id,
+                status:1
+            }
+        }).then(ads=>{
+            res.render('profile', {
+                title: 'хувийн мэдээлэл',
+                article: ads,
+                auther:user,
+                errors:''
+            });
+        })
+        
+    })
+})
+
+router.get('/profile/:id', function(req,res){
+    Freelancer.findOne({
+        where:{
+            id:req.params.id
         }
     }).then(user=>{
         Ad.findAll({

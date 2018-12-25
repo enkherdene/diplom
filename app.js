@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 //const db= require('./db');
 var cookieParser = require('cookie-parser');
 const upload =require('express-fileupload');
-//const passport = require('passport');
 
 const expressValidator = require('express-validator');
 const flash= require('connect-flash');
@@ -69,13 +68,6 @@ app.use(expressValidator({
 
      }
 }));
-//Passport config
-//require('./config/passport')(passport);
-
-//Passport midleware
-//app.use(passport.initialize());
-//app.use(passport.session());
-
 
 
 app.get('*', function(req,res,next){
