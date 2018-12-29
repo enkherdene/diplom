@@ -14,6 +14,7 @@ var index= require('./routes/index');
 var articles= require('./routes/articles');
 var users= require('./routes/users');
 var type= require('./routes/type');
+var admin= require('./routes/admin');
 
 //init app
 
@@ -86,6 +87,7 @@ app.use('/',index);
 app.use('/article',articles);
 app.use('/user',users);
 app.use('/type',type);
+app.use('/admin',admin);
 
 /**
 //home route

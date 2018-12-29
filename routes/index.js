@@ -158,18 +158,44 @@ router.get("/logout",function(req,res){
 
 //гарчигаар хайлт хийх
 router.post("/search", function(req,res){
-    AdType.findAll().then(types=>{
-        req.session.menu_types=types;
-        db.query("SELECT * FROM advertisements WHERE INSTR(name, ?) > 0 AND status=1",[req.body.search], function(err, rows){
-            res.render('index', {
-                title: '',
-                article: rows,
-                menu_types: types,
-                errors:''
+    Ad.findAndCountAll({
+        where:{
+            status:1
+        }
+    }).then(ads=>{
+        AdType.findAll().then(types=>{
+            req.session.menu_types=types;
+           User.findAndCountAll({
+               where:{
+                   status:1,
+               }
+           }).then(users=>{
+                Freelancer.findAndCountAll({
+                    where:{
+                        status:1
+                    }
+                }).then(freelancers=>{
+                    req.session.menu_types=types;
+                        db.query("SELECT * FROM advertisements WHERE INSTR(name, ?) > 0 AND status=1",[req.body.search], function(err, rows){
+                            
+                            res.render('index', {
+                                title: '',
+                                article: rows,
+                                adall:ads.count,
+                                userall:users.count,
+                                freeall:freelancers.count,
+                                menu_types: types,
+                                errors:''
+                                
+                            });
+                        });
+
                 
             });
+           })
         });
-    }) 
+    });
+    
 })
 
 

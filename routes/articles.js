@@ -267,7 +267,7 @@ router.get('/edit/:id',ensureAuth, function(req,res){
                         ad_subtype:  adData.ad_subtype,
                         start_date: adData.start_date,
                     });
-                    res.redirect('/');
+                    res.redirect('/user/profile');
                 })
 
                 
@@ -369,18 +369,7 @@ router.get('/delete/:id',function(req,res){
                         status:2,
                         end_date:today
                     }).then(() => {});
-                    Ad.findAll({
-                        where:{
-                            status:1
-                        }
-                    }).then(ads=>{
-                        res.render('index', {
-                            title: 'Зарын мэдээлэл',
-                            article: ads,
-                            errors:''
-                            
-                        });
-                    });
+                    res.redirect('/user/profile');
                 }else{
                     res.redirect('/article/'+ad.id);
                 }
