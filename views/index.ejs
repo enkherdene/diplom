@@ -5,38 +5,18 @@
 
         
         <div class="container">
-            <div class="row">
-                <div class="col" style="margin-top:10px">
-                        <div class="card h-100">
-                            <div class="card-body ">
-                            <h5 class="card-title ">
-                               <%= adall %>
-                            </h5>
-                            <p class="card-text">Нийт зар</p>
-                            </div>
-                        </div>
-                    </div>
-                <div class="col " style="margin-top:10px">
-                        <div class="card h-100">
-                            <div class="card-body ">
-                            <h5 class="card-title ">
-                               <%= userall %>
-                            </h5>
-                            <p class="card-text">Нийт эрхлэгч</p>
-                            </div>
-                        </div>
-                    </div>
-                <div class="col " style="margin-top:10px">
-                        <div class="card h-100">
-                            <div class="card-body ">
-                            <h5 class="card-title ">
-                               <%= freeall %>
-                            </h5>
-                            <p class="card-text">Нийт хувиараа хөдөлмөр эрхлэгч</p>
-                            </div>
-                        </div>
-                    </div>
-            </div>
+                <ul class="nav justify-content-center">
+                        <li class="nav-item">
+                          <a class="nav-link disabled" href="">Нийт зар: <%= adall %></a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link disabled" href="">Нийт хэрэглэгч: <%= userall %></a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link disabled" href="">Нийт хувиараа хөдөлмөр эрхлэгч: <%= freeall %></a>
+                        </li>
+                </ul>
+                
             <div class="row">
                 <% article.forEach(function(a){ %>
                     <div class="col-lg-3 col-sm-6 portfolio-item" style="margin-top:10px">
